@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+	<head>
+	    <title>OOP</title>
+	</head>
+
+	<body>
+		<script>
+			function Parent (_name, _age) {
+				//console.info(this);
+				this.name = _name;
+				this.age = _age;
+
+				var type = 'Bank';
+				//can't call by class/child class instance
+				updateTypePrivate = function (_type) {
+					type = _type;
+				}
+
+				//can be call by class/child class instance
+				this.getTypePublicClassFunt = function () {
+					console.log('Type: ' + type);
+				}
+			}
+
+			Parent.prototype.getInfo = function () {
+				console.log('Name: ' + this.name + '\nAge: ' + this.age);
+			}
+
+			Parent.prototype.getTypePublicPrototypeFunt = function () {
+				//call by this, bcause declare/define using this
+				this.getTypePublicClassFunt();
+			}
+
+			Parent.prototype.updateTypePublic = function (_type) {
+				updateTypePrivate(_type);
+			}
+
+			function Child (_name, _age, _city) {
+				//console.info(this);
+				Parent.apply(this, arguments);
+				this.city = _city;
+			}
+
+			Child.prototype = Object.create(Parent.prototype); //new Parent();
+			Child.prototype.constructor = Child;
+
+			var child = new Child('Vijay', 28, 'Pune');
+			console.log(child);
+			console.log(child instanceof Parent); //true
+			console.log(child instanceof Child); //true
+			child.getInfo();	
+			child.getTypePublicClassFunt();	//Bank
+			child.updateTypePublic('Software');
+			console.info('Type after update');
+			child.getTypePublicPrototypeFunt();	//Software
+
+			console.log('*** parent ***');
+			var parent = new Parent('Jay', 23);
+			console.log(parent);
+			parent.getTypePublicClassFunt();	//Bank
+			parent.updateTypePublic('Business');
+			parent.getTypePublicPrototypeFunt();	//Business
+		</script>
+	</body>
+</html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+	<head>
+	    <title>Variable Hoisting</title>
+	</head>
+
+	<body>
+		<button>btn</button>
+
+		<script>
+			function printClosure (i) {
+				return function () {
+					console.log(i);
+				}
+			}
+
+			for (var i = 0; i < 5; i++) {
+				var btn = document.createElement('button');
+				btn.addEventListener("click", printClosure(i));
+				document.body.appendChild(btn);
+			};
+
+			function Specify (str) {
+				var arr = str.split('');
+				console.log(arr.join(' '));
+			}
+			//Specify('vijay');
+
+			String.prototype.specify  = function () {
+				var arr = this.toString().split('');
+				console.log(arr.join(' '));
+			}
+			"vijay".specify();
+
+			function printColor () {
+				console.log(this);
+				console.log("color :: " + this.color);
+			}
+			var a = new printColor();
+			printColor();
+			window.color = 'red';
+			printColor();
+
+			//b = 6;
+			(function () {
+				a = 2;
+				var a = 3;
+				console.log(a);
+
+				return this;
+			})();
+
+			function temp () {
+				b = 9;
+				var b = 8;
+				console.log(b)
+			}
+
+			//temp();
+			//console.log(b);
+			//console.log(a);
+		</script>
+	</body>
+</html>

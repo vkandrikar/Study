@@ -1,0 +1,107 @@
+<html>
+	<!-- ZS Associates Round 1 UI Engineer Problem -->
+	<!-- Contents are property of ZS Associates, please do not redistribute -->
+	<head>
+		<title>Search Visited Accounts</title>
+		<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript"></script>-->
+		<script src="jquery.min.js" type="text/javascript"></script>
+
+		<script type="text/javascript">
+
+		$(function(){
+			//alert("hello world");
+
+			function fnSearchForString (evt) {
+				var searchString = $(this).val().trim().toLowerCase();
+				$('tr').show();
+				if (searchString !== '' && searchString !== 'enter search here') {
+					//var searchTR = $('tr:contains(' + searchString + ')');
+					$('tr').not(function () {
+						if ($(this).text().toLowerCase().indexOf(searchString) !== -1)
+							return true;
+						else
+							return false;
+					}).hide();
+					$('tr:first').show();
+				}
+			}
+
+			$('#search').bind('keyup', fnSearchForString);
+
+			$('#search').focus(function () {
+				if ($(this).val() === 'enter search here')
+					$(this).val('');
+			}).blur(function () {
+				if ($(this).val().trim() === '')
+					$(this).val('enter search here');
+			})
+		});
+
+		</script>
+		<style>
+		* {
+			font-family: helvetica, arial, sans-serif;
+		}
+		</style>
+	</head>
+	<body>
+		<form>
+			<fieldset>
+				<input type="text" id="search" name="search" value="enter search here">
+			</fieldset>
+		</form>
+		<table>
+			<tr><th>Account</th><th>Address</th><th>State</th><th>Postal Code</th><th>Last Visit</th></tr>
+			<tr><td>Veterans Adm Medical Ctr</td><td>3001 GREEN BAY ROAD</td><td>IL</td><td>60064</td><td><abbr title='2011-02-17'>today</abbr></td></tr>
+			<tr><td>Waukegan Developemntl Ctr</td><td>1401 DUGDALE AVE</td><td>IL</td><td>60085</td><td><abbr title='2011-02-16'>yesterday</abbr></td></tr>
+			<tr><td>St Theresas Hosp/Phcy</td><td>2615 W WASHINGTON ST</td><td>IL</td><td>60085</td><td><abbr title='2011-02-16'>yesterday</abbr></td></tr>
+			<tr><td>Midwestern Reg'l Med Ctr</td><td>2501 EMMAUS AVENUE</td><td>IL</td><td>60099</td><td><abbr title='2011-02-09'>February 09</abbr></td></tr>
+			<tr><td>St Francis Hosp/Phcy</td><td>355 RIDGE AVENUE</td><td>IL</td><td>60202</td><td><abbr title='2011-02-03'>February 03</abbr></td></tr>
+			<tr><td>Kishwaukee Comm Hosp</td><td>626 BETHANY RD-BOX 707</td><td>IL</td><td>60115</td><td><abbr title='2011-02-02'>February 02</abbr></td></tr>
+			<tr><td>West Suburban Hosp/Phcy</td><td>518 N AUSTIN BLVD</td><td>IL</td><td>60302</td><td><abbr title='2011-02-01'>February 01</abbr></td></tr>
+			<tr><td>John Madden Mntl Hlth Ctr</td><td>1200 SOUTH FIRST AVE</td><td>IL</td><td>60141</td><td><abbr title='2011-01-30'>January 30</abbr></td></tr>
+			<tr><td>Macneal Mem Hosp/Phcy</td><td>3249 S OAK PARK AVE</td><td>IL</td><td>60402</td><td><abbr title='2011-01-29'>January 29</abbr></td></tr>
+			<tr><td>Vencor Hospital</td><td>365 E NORTH AVE</td><td>IL</td><td>60164</td><td><abbr title='2011-01-28'>January 28</abbr></td></tr>
+			<tr><td>Holy Family Hosp</td><td>100 N RIVER RD</td><td>IL</td><td>60016</td><td><abbr title='2011-01-27'>January 27</abbr></td></tr>
+			<tr><td>Good Shepherd Hospital</td><td>450 W HIWAY 22</td><td>IL</td><td>60010</td><td><abbr title='2011-01-25'>January 25</abbr></td></tr>
+			<tr><td>Marianjoy Rehab Hospital</td><td>26 WEST 171 ROOSEVLT RD</td><td>IL</td><td>60187</td><td><abbr title='2011-01-25'>January 25</abbr></td></tr>
+			<tr><td>Delnor Comm Hosp/Comm</td><td>300 RANDALL ROAD</td><td>IL</td><td>60134</td><td><abbr title='2011-01-22'>January 22</abbr></td></tr>
+			<tr><td>Oak Park Hosp</td><td>520 S MAPLE AVE</td><td>IL</td><td>60304</td><td><abbr title='2011-01-18'>January 18</abbr></td></tr>
+			<tr><td>St Francis Hosp</td><td>12935 S GREGORY ST</td><td>IL</td><td>60406</td><td><abbr title='2011-01-16'>January 16</abbr></td></tr>
+			<tr><td>Sherman Hosp/Phcy</td><td>934 CENTER ST</td><td>IL</td><td>60120</td><td><abbr title='2010-12-29'>December 29</abbr></td></tr>
+			<tr><td>Elgin Mental Health Ctr</td><td>750 S STATE ST</td><td>IL</td><td>60123</td><td><abbr title='2010-12-27'>December 27</abbr></td></tr>
+			<tr><td>Forrest Hospital</td><td>555 WILSON LANE</td><td>IL</td><td>60016</td><td><abbr title='2010-12-23'>December 23</abbr></td></tr>
+			<tr><td>Highland Park Hospital</td><td>718 GLENVIEW AVE</td><td>IL</td><td>60035</td><td><abbr title='2010-12-16'>December 16</abbr></td></tr>
+			<tr><td>Vencor Hospital Sycamore</td><td>225 EDWARD ST</td><td>IL</td><td>60178</td><td><abbr title='2010-12-09'>December 09</abbr></td></tr>
+			<tr><td>St Joseph Hosp/Phcy</td><td>77 N AIRLITE ST</td><td>IL</td><td>60123</td><td><abbr title='2010-12-08'>December 08</abbr></td></tr>
+			<tr><td>Condell Medical Center</td><td>801 S MILWAUKEE AVE</td><td>IL</td><td>60048</td><td><abbr title='2010-12-04'>December 04</abbr></td></tr>
+			<tr><td>Val Regiol Med Ctr</td><td>2705 SHERIDAN RD BLDG 200H</td><td>IL</td><td>60088</td><td><abbr title='2010-12-04'>December 04</abbr></td></tr>
+			<tr><td>Northwestern University</td><td>N/A</td><td>IL</td><td>60208</td><td><abbr title='2010-11-20'>November 20</abbr></td></tr>
+			<tr><td>Northern Illinois Med Ctr</td><td>4201 MEDICAL CENTER DR</td><td>IL</td><td>60050</td><td><abbr title='2010-11-15'>November 15</abbr></td></tr>
+			<tr><td>Victory Mem Hospital-phcy</td><td>1324 N SHERIDAN RD</td><td>IL</td><td>60085</td><td><abbr title='2010-11-13'>November 13</abbr></td></tr>
+			<tr><td>Bhc Streamwood Hosp</td><td>1400 E IRVING PARK RD</td><td>IL</td><td>60107</td><td><abbr title='2010-11-11'>November 11</abbr></td></tr>
+			<tr><td>Columbia Woodland Hosp</td><td>1650 MOON LAKE BLVD</td><td>IL</td><td>60194</td><td><abbr title='2010-11-11'>November 11</abbr></td></tr>
+			<tr><td>Northwest Comm Hosp/Phcy</td><td>800 W CENTRAL RD</td><td>IL</td><td>60005</td><td><abbr title='2010-11-10'>November 10</abbr></td></tr>
+			<tr><td>Mem Hosp For Mchenry Cnty</td><td>527 W SOUTH ST</td><td>IL</td><td>60098</td><td><abbr title='2010-11-08'>November 08</abbr></td></tr>
+			<tr><td>Rush North Shore Med Ctr</td><td>9600 GROSS POINT ROAD</td><td>IL</td><td>60076</td><td><abbr title='2010-11-07'>November 07</abbr></td></tr>
+			<tr><td>Elmhurst Memorial Hosp</td><td>200 BERTEAU AVE</td><td>IL</td><td>60126</td><td><abbr title='2010-11-06'>November 06</abbr></td></tr>
+			<tr><td>Fg Mcgaw Hosp-loyola Univ</td><td>2160 S FIRST AVE- BOX 282</td><td>IL</td><td>60153</td><td><abbr title='2010-10-28'>October 28</abbr></td></tr>
+			<tr><td>Westlake Comm Hosp/Phcy</td><td>1225 SUPERIOR ST</td><td>IL</td><td>60160</td><td><abbr title='2010-10-27'>October 27</abbr></td></tr>
+			<tr><td>Lake Forest Hosp/Phcy</td><td>660 N WESTMORELAND RD</td><td>IL</td><td>60045</td><td><abbr title='2010-10-24'>October 24</abbr></td></tr>
+			<tr><td>Central Dupage Hosp-phcy</td><td>25 N WINFIELD RD - BOX 248</td><td>IL</td><td>60190</td><td><abbr title='2010-10-22'>October 22</abbr></td></tr>
+			<tr><td>Lutheran Gen Hosp/Phcy</td><td>1775 DEMPSTER ST</td><td>IL</td><td>60068</td><td><abbr title='2010-10-21'>October 21</abbr></td></tr>
+			<tr><td>V A Medical Center Hosp</td><td>ROOSEVELT & 5TH</td><td>IL</td><td>60141</td><td><abbr title='2010-10-20'>October 20</abbr></td></tr>
+			<tr><td>Memorial Medical Center</td><td>3701 DOTY RD</td><td>IL</td><td>60098</td><td><abbr title='2010-10-09'>October 09</abbr></td></tr>
+			<tr><td>St James Hosp/Phcy</td><td>1423 CHICAGO RD</td><td>IL</td><td>60411</td><td><abbr title='2010-10-03'>October 03</abbr></td></tr>
+			<tr><td>Harvard Comm Mem Hospital</td><td>901 GRANT ST</td><td>IL</td><td>60033</td><td><abbr title='2010-09-22'>September 22</abbr></td></tr>
+			<tr><td>Evanston Hospital-phcy</td><td>2650 RIDGE AVENUE</td><td>IL</td><td>60201</td><td><abbr title='2010-09-16'>September 16</abbr></td></tr>
+			<tr><td>Gottlieb Memorial Hosp</td><td>701 WEST NORTH AVENUE</td><td>IL</td><td>60160</td><td><abbr title='2010-09-01'>September 01</abbr></td></tr>
+			<tr><td>Ww Fox State Children Ctr</td><td>134 WEST MAIN ST</td><td>IL</td><td>60420</td><td><abbr title='2010-08-28'>August 28</abbr></td></tr>
+			<tr><td>Hoffman Estates Med Ctr</td><td>1555 N BARRINGTON RD</td><td>IL</td><td>60194</td><td><abbr title='2010-08-22'>August 22</abbr></td></tr>
+			<tr><td>Alexian Bros Med Ctr/Phcy</td><td>800 W BIESTERFIELD ROAD</td><td>IL</td><td>60007</td><td><abbr title='2010-08-16'>August 16</abbr></td></tr>
+			<tr><td>Glenbrook Hosp/Phcy</td><td>2100 PFINGSTEN RD</td><td>IL</td><td>60025</td><td><abbr title='2010-08-13'>August 13</abbr></td></tr>
+			<tr><td>Glenoaks Medical Ctr</td><td>701 WINTHROP</td><td>IL</td><td>60139</td><td><abbr title='2010-08-12'>August 12</abbr></td></tr>
+			<tr><td>Columbia Riverdege Hosp</td><td>8311 W ROOSEVELT ROAD</td><td>IL</td><td>60130</td><td><abbr title='2010-08-09'>August 09</abbr></td></tr>
+		</table>
+	</body>
+</html>

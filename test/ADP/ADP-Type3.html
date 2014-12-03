@@ -1,0 +1,206 @@
+<!doctype html>
+<html>
+	<head>
+	    <title>Wrake A Mole</title>
+	</head>
+
+	<style>
+		body {
+		    background-color: #f4f5f5;
+		}
+		p {
+		    margin-left: 5px;
+		}
+		ul {
+		    padding: 0;
+		    margin: 0;
+		    cursor: pointer;
+		    position: relative;
+		}
+		section {
+		    background-color: #fff;
+		    width: 500px;
+		    height: 500px;
+		    padding: 5px 0;
+		}
+		li {
+		    background-color: #ccc;
+		    display: block;
+		    float: left;
+		    height: 50px;
+		    margin: 0 0 5px 5px;
+		    text-decoration: none;
+		    width: 50px;
+		    position: absolute;
+		}
+		li span {
+		    display: block;
+		    background-color: #cccccc;
+		    width: 50px;
+		    height: 50px;
+		}
+		.fill {
+			background-color: #333333;
+		}
+		
+	</style>
+
+	<body>
+		<div id="game-wrapper">
+			<section>
+			    <ul id="game1-stage"></ul>
+			    <ul id="game2-stage" style="left:300px;"></ul>
+			</section>
+		</div>
+	</body>
+
+	<script>
+		var WhackAMole = (function () {
+			function Game (_col, _row, _gap, _speed, _stageId) {
+				var COL = _col,
+			        ROW = _row,
+			        GAP = _gap,
+			        li,
+			        emptyTileArr = [],
+			        selectedTileArr = [],
+			        stageId = _stageId,
+			        stage,
+			        span,
+			        SPEED = _speed,
+			        startGame,
+			        timer,
+			        gameInterval;
+
+			    initialize = function () {
+			    	///fnCreateRandomArray();
+			        fnCreateStage();
+			        fnAddGameEvents();
+			        fnStartGame();
+			    };
+
+			    fnCreateRandomArray = function () {
+			    	var count = 3;//Math.round(Math.random() * ((ROW * COL)/4)) + 2;
+			    	while (selectedTileArr.length < count) {
+			    		var randomNo = Math.round(((ROW * COL) -1 ) * Math.random());
+			    		if (selectedTileArr.indexOf(emptyTileArr[randomNo]) === -1)
+			    			selectedTileArr.push(emptyTileArr[randomNo]);
+		    		}
+			    };
+
+			    fnCreateStage = function () {
+			        span = document.createElement('span');
+			        li = document.createElement('li');
+			        stage = document.getElementById(_stageId);
+
+			        var no = 0;
+
+			        for (var i = 0; i < ROW; i++) {
+			        	for (var j = 0; j < COL; j++) {
+			        		var cloneLi = li.cloneNode(false),
+			                cloneSpan = span.cloneNode(false);
+
+			                cloneSpan.classList.add(i+'_'+j);
+			            	cloneLi.appendChild(cloneSpan);
+			            	stage.appendChild(cloneLi);
+
+			            	/*if (selectedTileArr.indexOf(no) !== -1)
+			            		cloneSpan.className = 'fill';
+			            	else
+			            		emptyTileArr.push(cloneSpan);
+
+			            	no++;*/
+			            	emptyTileArr.push(i+'_'+j);
+
+			            	cloneLi.style.marginLeft = j * (parseInt(cloneLi.clientWidth) + GAP) + "px";
+			            	cloneLi.style.marginTop = i * (parseInt(cloneLi.clientWidth) + GAP) + "px";
+			        	}
+			        }
+			    };
+
+			    fnAddGameEvents = function () {
+			        stage.addEventListener('click', function(e) {
+			            if (e.target && 'span' === e.target.nodeName.toLowerCase()) {
+			                if ('fill' === e.target.className) {
+			                    ///emptyTileArr.push(e.target);
+			                    selectedTileArr.splice(selectedTileArr.indexOf(e.target), 1);
+			                    e.target.classList.remove('fill');
+			                    fnCheckForWin();
+			                }
+			            }
+			        }, false);
+			    };
+
+			    fnStartGame = function () {
+			        gameInterval = setInterval(fnSetTile, SPEED);
+			    };
+
+			    fnResetTiles = function () {
+			    	for (var i = 0; i < selectedTileArr.length; i++) {
+				    	var tile = stage.getElementsByClassName(selectedTileArr[i]);
+				        if (tile) {
+					        tile.classList.remove('fill');
+					    }
+				    }
+
+				    selectedTileArr = [];
+			    };
+
+			    fnSetTile = function () {
+			        /*var no = Math.round(Math.random() * ((COL * ROW) - (selectedTileArr.length + 1) ));
+			        var tile = emptyTileArr[no];
+			        if (tile && tile.className !== 'fill') {
+				        tile.className = 'fill';
+				        selectedTileArr.push(tile);
+				        emptyTileArr.splice(emptyTileArr.indexOf(tile), 1);
+				        fnCheckForLoose(); 
+				    }*/
+				    fnResetTiles();
+				    fnCreateRandomArray();
+				    for (var i = 0; i < selectedTileArr.length; i++) {
+
+				    	var tile = stage.getElementsByClassName(selectedTileArr[i]);
+				    	//console.log(stage);
+				    	console.log(tile);
+				    	//console.log(stage.querySelector(tile));
+				    	console.log('----');
+				        if (tile && tile.className !== 'fill') {
+					        tile.classList.add('fill');
+					    }
+				    }
+			    };
+
+			    fnCheckForWin = function () {
+			    	if (selectedTileArr.length === 0) {
+						clearInterval(gameInterval);
+						stage.removeEventListener('click');
+			    		alert('You Win!');
+					}
+			    };
+
+			    fnCheckForLoose = function () {
+			    	if (selectedTileArr.length === (ROW * COL)) {
+						clearInterval(gameInterval);
+						stage.removeEventListener('click');
+			    		alert('You Loose!');
+					}
+			    };
+
+			   return {
+			        init: initialize
+			    }; 
+			}
+
+			return Game;
+	})();
+
+	window.addEventListener('DOMContentLoaded', function () {
+	    //whackAMole.init();
+
+	    var whackAMole1 = new WhackAMole(4, 4, 10, 200000, 'game1-stage');
+	    whackAMole1.init();
+
+		var whackAMole2 = new WhackAMole(3, 3, 10, 2000, 'game2-stage');
+	    whackAMole2.init();
+	});
+	</script>
+</html>

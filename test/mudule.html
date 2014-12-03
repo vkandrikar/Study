@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+	<head>
+	    <title>Namespace - Singleton - Module</title>
+	</head>
+
+	<body>
+		<script>
+			/*
+				*****************
+					NAMESPACE
+				*****************
+			*/
+			var global = (function () {
+				var GLB = GLB || {};
+
+				GLB.private = {
+					appVersion : 1.1,
+					appName : 'Test App'
+				}
+
+				GLB.public = {
+					getInfo : function () {
+						console.log('App Name: ' + GLB.private.appName + '\nApp Version:' + GLB.private.appVersion);
+					},
+
+					updateVersion : function (_appVersion) {
+						GLB.private.appVersion = _appVersion
+					}
+				}
+				
+				return GLB.public;
+			})();
+
+			global.getInfo();	//1.1
+			global.appVersion = 1.2;
+			global.getInfo();	//1.1
+			global.updateVersion(1.2);
+			global.getInfo();	//1.2
+
+
+			var ModuleName = (function () {
+				function ClassName (_name, _age) {
+					var name = _name;
+					var age = _age;
+
+					getInfo = function () {
+						console.log('Hi, my name is ' + name + ' & I am ' + age + ' year old.');
+					}
+
+					return {
+						info: getInfo
+					}
+				}
+
+				return ClassName;
+			})();
+
+			var module = new ModuleName('vijay', 28);
+			console.log('This is test module');
+			console.log(module);
+			module.info();
+
+			/*
+				************************
+					SINGLETON MODULE
+				************************
+			*/
+
+			var Singleton = (function () {
+				function MyCollection () {
+					var collection = [];
+
+					addItem = function (_item) {
+						collection.push(_item);
+					}
+
+					removeItem = function (_item) {
+						collection.splice(collection.indexOf(_item), 1);
+					}
+
+					getCollection = function () {
+						console.log('Collection: ' + collection);
+					}
+
+					return {
+						add: addItem,
+						remove: removeItem,
+						print: getCollection
+					}
+				}
+
+				var instance;
+
+				getInstance = function () {
+					if (instance === undefined)
+						instance = new MyCollection();
+
+					return instance;
+				}
+
+				return {
+					create: getInstance
+				}
+			})();
+
+			console.log('\nCollection1');
+			var collection1 = Singleton.create();
+			collection1.print();
+			collection1.add(1);
+			collection1.add(2);
+			collection1.print();
+
+			console.log('\nCollection2');
+			var collection2 = Singleton.create();
+			collection2.print();
+			collection2.add(3);
+			collection2.add(4);
+			collection2.print();
+		</script>
+	</body>
+</html>

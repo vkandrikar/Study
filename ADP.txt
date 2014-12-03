@@ -1,0 +1,110 @@
+ADP:
+
+1) Variable hoisting:
+	Variable can be declared after it has been used
+    JavaScript only hoists declarations, not initializations
+	x = 7; alert(x); var x;	
+
+2) Function hoisting:
+	Unlike variables, a function declaration doesn't just hoist the function's name. It also hoists the actual function defination.
+
+3) Where to include your javascript? Explain with reason:
+	Scripts can be placed in the <body>, or in the <head> section of an HTML page, or in both.
+	It is a good idea to place scripts at the bottom of the <body> element.
+	This improves page load, because HTML loading is not blocked by scripts loading.
+
+4) What is “use strict”:
+	The "use strict" directive is new in JavaScript 1.8.5 (ECMAScript version 5).
+	The purpose of "use strict" is to indicate that the code should be executed in "strict mode".
+	Declared at the beginning of a JavaScript file, it has global scope (all code will execute in strict mode).
+	Declared inside a function, it has local scope (only the code inside the function is in strict mode).
+
+5) What is prototype:
+	Allows you to add properties and methods to an object.
+
+6) What is __proto__:
+	The __proto__ property of Object.prototype is an accessor property (a getter function and a setter function) that exposes the internal [[Prototype]] (either an object or null) of the object through which it is accessed.
+
+	function Employee() {}
+	var fred = new Employee();
+	fred.__proto__ === Employee.prototype; // true
+
+	fred inherits from Employee, however assigning a different object to fred.__proto__ can change that
+
+	fred.__proto__ = Object.prototype;
+
+	Now fred no longer inherits from Employee.prototype, but directly from Object.prototype, and loses the properties it originally inherited from Employee.prototype.
+
+7) Closures:
+	Closures are functions that refer to independent (free) variables. 
+	In other words, the function defined in the closure 'remembers' the environment in which it was created. 
+	We can defined private variables using closures.
+
+8) How to add methos to constructor function:
+	function Person(name, family) {
+    	this.name = name; this.family = family;
+    }
+
+	Person.prototype.getFull = function() {
+	    return this.name + " " + this.family;
+	};
+
+9) File upload and submit to server:
+	<form id="file-form" action="handler.php" method="POST">
+	 	<input type="file" id="file-select" name="photos[]" multiple/>
+	 	<button type="submit" id="upload-button">Upload</button>
+	</form>
+	or
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST', 'handler.php', true); 
+	//true (asynchronous) or false (synchronous)
+	xhr.onload = function () {
+		if (xhr.status === 200) {
+			//success
+		} else {
+		}
+	};
+	xhr.send(formData);
+
+10) HTTP methods:
+	GET: can be cached, remain in the browser history, can be bookmarked, lenght restriction, should never be used when dealing with sensitive data, should be used only to retrieve data
+	POST: never cached, can't be bookmarked, do not remain in the browser history, no restrictions on data length
+
+11) How does http methods work:
+	HTTP works as a request-response protocol between a client and server.
+	A client (browser) submits an HTTP request to the server; then the server returns a response to the client. The response contains status information about the request and may also contain the requested content.
+
+12) What is eval():
+	The eval() function evaluates or executes an argument.
+	If the argument is an expression, eval() evaluates the expression. If the argument is one or more JavaScript statements, eval() executes the statements.
+	var x = 8, y = 9, sum = eval("x + y");
+
+13) what does w3c compliance means?
+	W3C compliance basically means that the HTML and CSS code that a website is built with is fully compliant with the standards set by the World Wide Web Consortium (W3C for short).
+
+14) console.log(0 == false); //true
+	console.log(0 === false); //false
+
+15) How to attach click event on initialization:
+	object.addEventListener (eventName, function, useCapture);
+	or object.attach (eventName, function);
+	object.detachEvent (eventName, function);
+
+16) Write code for tic tac toe game in OO JS:
+
+17) Difference between object and constructor in JavaScript:
+	A constructor, as its name suggests, is designed to create and set up multiple instances of an object.
+	An object literal on the other hand is one-off, like string and number literals, and used more often as configuration objects or global singletons
+
+18) Improve page performance:
+	Link prefetching is a proprietary syntax to give web browsers a hint about documents that it should pre-fetch because the user might visit them in the near future.
+	<link rel="prefetch" href="http://www.example.com/">
+	Efficiently structure markup
+	Avoid inline JavaScript events
+	Link style sheets at the top of the page
+	Only include the necessary styles
+	Link your JavaScript at the bottom of the page
+	Use image sprites
+	Minify your JavaScript
+	Use web standards
+	

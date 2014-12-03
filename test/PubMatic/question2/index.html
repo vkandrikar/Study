@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+	<head>
+	    <title>Nested document.write()</title>
+	</head>
+
+	<body>
+		<script>
+		    (function(s) {
+		        var str = s.substring(s.lastIndexOf('document.write'), s.indexOf('<\/script>'));
+
+		        eval(str);
+		    })("document.write('<script>document.write(\"<script>document.write('<script>document.write(\"Hello World\");<\/script>');<\/script>\");<\/script>')");
+		</script>
+	</body>
+</html>

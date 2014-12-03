@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+	<head>
+	    <title>Wrake A Mole</title>
+	</head>
+
+	<style>
+		body {
+		    background-color: #f4f5f5;
+		}
+		p {
+		    margin-left: 5px;
+		}
+		ul {
+		    padding: 0;
+		    margin: 0;
+		    cursor: pointer;
+		    position: relative;
+		}
+		section {
+		    background-color: #fff;
+		    width: 500px;
+		    height: 500px;
+		    padding: 5px 0;
+		}
+		li {
+		    background-color: #ccc;
+		    display: block;
+		    float: left;
+		    height: 50px;
+		    margin: 0 0 5px 5px;
+		    text-decoration: none;
+		    width: 50px;
+		    position: absolute;
+		}
+		li span {
+		    display: block;
+		    background-color: #cccccc;
+		    width: 50px;
+		    height: 50px;
+		}
+		.fill {
+			background-color: #333333;
+		}
+		
+	</style>
+
+	<body>
+		<div id="game-wrapper">
+			<section>
+			    <ul id="game-stage"></ul>
+			</section>
+		</div>
+	</body>
+
+	<script>
+		var whackAMole = (function () {
+	    var COL = 4,
+	        ROW = 4,
+	        GAP = 10,
+	        li,
+	        emptyTileArr = [],
+	        selectedTileArr = [],
+	        stage,
+	        span,
+	        SPEED = 2000,
+	        startGame,
+	        timer,
+	        gameInterval;
+
+	    initialize = function () {
+	    	fnCreateRandomArray();
+	        fnCreateStage();
+	        fnAddGameEvents();
+	        fnStartGame();
+	    };
+
+	    fnCreateRandomArray = function () {
+	    	var count = Math.round(Math.random() * ((ROW * COL)/4)) + 2;
+	    	while (selectedTileArr.length < count) {
+	    		var randomNo = Math.round(((ROW * COL) -1 ) * Math.random());
+	    		if (selectedTileArr.indexOf(randomNo) === -1)
+	    			selectedTileArr.push(randomNo);
+    		}
+	    };
+
+	    fnCreateStage = function () {
+	        span = document.createElement('span');
+	        li = document.createElement('li');
+	        stage = document.getElementById('game-stage');
+
+	        var no = 0;
+
+	        for (var i = 0; i < ROW; i++) {
+	        	for (var j = 0; j < COL; j++) {
+	        		var cloneLi = li.cloneNode(false),
+	                cloneSpan = span.cloneNode(false);
+
+	            	cloneLi.appendChild(cloneSpan);
+	            	stage.appendChild(cloneLi);
+
+	            	if (selectedTileArr.indexOf(no) !== -1)
+	            		cloneSpan.className = 'fill';
+	            	else
+	            		emptyTileArr.push(cloneSpan);
+
+	            	no++;
+
+	            	cloneLi.style.marginLeft = j * (parseInt(cloneLi.clientWidth) + GAP) + "px";
+	            	cloneLi.style.marginTop = i * (parseInt(cloneLi.clientWidth) + GAP) + "px";
+	        	}
+	        }
+	    };
+
+	    fnAddGameEvents = function () {
+	        stage.addEventListener('click', function(e) {
+	            if (e.target && 'span' === e.target.nodeName.toLowerCase()) {
+	                if ('fill' === e.target.className) {
+	                    e.target.className = '';
+	                    emptyTileArr.push(e.target);
+	                    selectedTileArr.splice(selectedTileArr.indexOf(e.target), 1);
+	                    fnCheckForWin();
+	                }
+	            }
+	        }, false);
+	    };
+
+	    fnStartGame = function () {
+	        gameInterval = setInterval(fnSetTile, SPEED);
+	    };
+
+	    fnSetTile = function () {
+	        var no = Math.round(Math.random() * ((COL * ROW) - (selectedTileArr.length + 1) ));
+	        var tile = emptyTileArr[no];
+	        if (tile && tile.className !== 'fill') {
+		        tile.className = 'fill';
+		        selectedTileArr.push(tile);
+		        emptyTileArr.splice(emptyTileArr.indexOf(tile), 1);
+		        fnCheckForLoose(); 
+		    }
+	    };
+
+	    fnCheckForWin = function () {
+	    	if (emptyTileArr.length === (ROW * COL)) {
+				clearInterval(gameInterval);
+				stage.removeEventListener('click');
+	    		alert('You Win!');
+			}
+	    };
+
+	    fnCheckForLoose = function () {
+	    	if (selectedTileArr.length === (ROW * COL)) {
+				clearInterval(gameInterval);
+				stage.removeEventListener('click');
+	    		alert('You Loose!');
+			}
+	    };
+
+	    return {
+	        init: initialize
+	    };
+	})();
+
+	window.addEventListener('DOMContentLoaded', function () {
+	    whackAMole.init();
+	});
+	</script>
+</html>

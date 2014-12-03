@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+	<head>
+	    <title>GS-Lab</title>
+	    <script src="jquery2.1.1.min.js"></script>
+	</head>
+
+	<style>
+	  div {
+	    height: 50px;
+	    width: 50px;
+	    float: left;
+	    margin-right: 10px;
+	    display: none;
+	    background-color: #090;
+	  }
+	  </style>
+
+	<body>
+		<button class='btn1'>get data</button>
+		<button class='btn2'>promise example</button>
+		<button class='btn3'>when done example</button>
+
+		<p></p>
+		<div class='div1'></div>
+		<div class='div2'></div>
+		<script>
+			function StaticClass () {
+				StaticClass.count = ++StaticClass.count || 1;
+
+				console.log('StaticClass.count :: ' + StaticClass.count);
+			}
+
+			var obj1 = new StaticClass();
+			var obj2 = new StaticClass();
+			StaticClass();
+			var obj3 = new StaticClass();
+
+			//-----
+			console.log(1 + + '1' + '2');
+			console.log(1 + + '1' + + '2');
+
+			//-----
+			//Asynchronous call synchronously
+			var arr = [];
+			function action1 () {
+				//do operation here like ajax call & else
+			    arr.push(1);
+			}
+
+			function action2 () {
+				//do operation here like ajax call & else
+			    arr.push(2);
+			}
+
+			function action3 () {
+				//do operation here like ajax call & else
+			    arr.push(3);
+			}
+
+			function allDone () {
+				console.log('arr :: ' + arr);
+			}
+
+			var dfd = $.Deferred();
+			// Add handlers to be called when dfd is resolved
+			dfd.done( [ action2, action1, action3 ], allDone );
+			//prob in this, it will not wait for each other
+
+			$('.btn1').on('click', function () {
+				dfd.resolve();
+			});
+
+
+			//-------
+			var effect = function() {
+			  return $( ".div1" ).fadeIn( 800 ).delay( 1200 ).fadeOut();
+			};
+
+			var effect1 = function() {
+			  return $( ".div2" ).fadeIn( 1800 ).delay( 2200 ).fadeOut();
+			};
+			 
+			$( ".btn2" ).on( "click", function() {
+				$( ".div2" ).fadeIn( 1800 ).delay( 2200 ).fadeOut();
+				$( ".div1" ).fadeIn( 800 ).delay( 1200 ).fadeOut();
+			  $( ".div2, .div1" ).promise().done(function() {
+			    $( "p" ).append( " Finished! " );
+			  });
+			});
+
+			$( ".btn3" ).on( "click", function() {
+			  $( "p" ).append( " Started... " );
+			 
+			  $.when( effect(), effect1() ).done(function() {
+			    $( "p" ).append( " Finished! " );
+			  });
+			});
+
+
+
+			$.when(
+			  // Get the HTML
+			  $.get("/feature/", function(html) {
+			    
+			  }),
+
+			  // Get the CSS
+			  $.get("/assets/feature.css", function(css) {
+			    
+			  }),
+
+			  // Get the JS
+			  $.getScript("/assets/feature.js")
+
+			).then(function() {
+
+			  // All is ready now, so...
+
+			});
+		</script>
+	</body>
+</html>

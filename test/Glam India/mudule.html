@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+	<head>
+	    <title>Namespace - Singleton - Module</title>
+	    <link rel="stylesheet" type="text/css" href="style.css">
+	    <script src="../jquery2.1.1.min.js"></script>
+	</head>
+
+	<style type="text/css">
+		.name {
+			color: red;
+		}
+
+		span {
+			/*display: inline-block;*/
+		}
+
+		.lastname11 {
+			/*display: inline-block;*/
+			display: block;
+			height: 100px;
+		}
+
+		.a.c {
+			color: pink;
+		}
+
+		.a .c {
+			color: yellow;
+		}
+	</style>
+
+	<body>
+		<div class='name'>Vijay</div>
+		<div class='lastname'>Kandrikar</div>
+
+		<span class='name1'>Vijay</span>
+		<span class='lastname11'>Kandrikar</span>
+		<span class='name1'>Vijay</span>
+		</br>
+		<span class='lastname1'>Kandrikar</span>
+		<span class='name1'>Vijay</span>
+		<span class='lastname1'>Kandrikar</span>
+
+		<div class='a'>Vijay
+			<div class='c'>Kishor</div>
+		</div>
+
+		<div class='a c'>Kandrikar</div>
+		<input type='number'>
+
+		<div id='p'>Vijay
+			<div id='v'>Kishor</div>
+		</div>
+	</body>
+
+	<script>
+		$('.a').on('click', function () {alert('parent')});
+		$('.c').on('click', function () {alert('child')});
+
+		document.getElementById('p').addEventListener('click', function () {alert('parent')}, false);
+		document.getElementById('v').addEventListener('click', function () {alert('child')}, false);
+	</script>
+</html>

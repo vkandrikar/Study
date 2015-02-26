@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <title>Untitled Document</title>
+    <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    </head>
+    
+    <body>
+        <div class='temp'>
+            <span><a id='1'>1</a></span>
+            <span><a id='2'>2</a></span>
+            <span><a id='0' class="test">3</a></span>
+            <span>0</span>
+        </div>
+        
+        <script>
+			var len = $('.temp span a').length-1;
+			$('.temp a').attr('id', function(i) {
+				$(this).removeClass('test');
+				if (i == 0)
+					$(this).addClass('test');
+			   return len-i;
+			});
+			
+			//or
+			
+			/*$('.temp a').each(function(i) {
+				console.log($(this).attr('id'));
+			});*/
+		</script>
+    </body>
+</html>

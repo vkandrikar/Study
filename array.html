@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+
+</head>
+
+<body>
+<script>
+
+function ReverseArray(){
+	var arr=[16,28,3,4,53];
+            for(i=0, j=arr.length-1; i<(arr.length-1)/2; i++, j--){
+               var temp=arr[i];
+                arr[i]=arr[j];
+                arr[j]=temp;
+            }
+            console.log(arr);
+}
+//ReverseArray();
+
+function ReverseArrayByDevilal(){
+	var arr=[16,28,3,4,53];
+            for(i=0, j=arr.length-1; i<(arr.length-1)/2; i++, j--){
+               /*var temp=arr[i];
+                arr[i]=arr[j];
+                arr[j]=temp;*/
+				
+				arr[i] = [arr[j], arr[j] = arr[i]][0];
+				
+				
+            }
+            console.log("ReverseArrayByDevilal>>"+arr);
+			
+			var a = 'abc';
+			var b = 'xyz';
+			b = [a, a=b][0];
+			console.log(a+"--"+b)
+			
+}
+
+ReverseArrayByDevilal();
+
+
+function reverseMynName (str) {
+	var myStr = "";
+	for(var i=str.length-1; i>=0; i--){
+	   myStr += (str[i])
+	}
+			console.log(myStr);
+}
+
+reverseMynName('vijay')
+
+function StarPattern(){
+	var n = 4;
+	var star = "";
+	
+	for(var i=0; i<=n; i++){
+		star += "*";
+		console.log(star)
+	}
+}
+//StarPattern();
+
+function TrianglePattern(){
+	var n = 4;
+	var star = "";
+	var rows = Math.ceil(n/2);
+	
+	for (var i = 0; i<rows; i++)
+	{
+	  for(var k=0 ; k<=i; k++){
+		console.log(" ");
+	  }
+	  for (j=0; j<=j; j++){
+	  	star += "*";
+		console.log(star);   
+	  }
+	 console.log("");
+	}
+}
+//TrianglePattern();
+
+function regularExpression(){
+	var url = "https:\/\/play.google.com\/store\/apps\/details?id=com.lego.starwars.thenewyodachronicles&hl=en";
+	//console.log(url.split("=")[1]);
+	
+	var temp = /^.*?=([\w.]+).*$/gm;
+	var myArray = temp.exec(url)
+	console.log(myArray)
+
+}
+ //regularExpression();
+ 
+ 
+function findLowest () {
+	var points = [40, 100, 1, 5, 25, 10];
+	points.sort(function(a, b){return a-b});
+}
+
+function findHeight () {
+	var points = [40, 100, 1, 5, 25, 10];
+	points.sort(function(a, b){return b-a});
+}
+</script>
+
+<div style="float:left; width:100%;">
+<div style="border:1px solid red">
+
+	<div style="height:200px;position:relative"></div>
+    <div style="position:relative"></div>
+   
+    
+</div>
+</div>
+</body>
+</html>

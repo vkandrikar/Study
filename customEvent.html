@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    	<title>Untitled Document</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    </head>
+    
+    <body>
+		<script>
+			//(function(  ){
+			 
+				function Event() {
+					this.UPDATE = "update";
+					this.CLICK = "click";
+					
+					return this;
+				}
+			 
+				Event.prototype.addListener = function( type, callback ) {
+					$( 'body' ).bind( type , callback );
+				}
+			 
+				Event.prototype.dispatch = function( type, data ) {
+					$( 'body' ).trigger( type, data );
+				}
+			 
+				//ns.Event = Event;
+			//}( window ));
+			 
+			var AppEvent = new Event();
+			AppEvent.addListener( AppEvent.UPDATE, someMethod );
+			AppEvent.dispatch( AppEvent.UPDATE, {id:'My Custom Event'} );
+			 
+			function someMethod(e, d) {
+				console.log('response: ' + d.id);
+			}
+        </script>
+    
+    </body>
+</html>
